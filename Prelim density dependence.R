@@ -78,9 +78,15 @@ for (i in 1:length(unique(timeCover$quadYear))){
   subdata<-subset(timeCover,quadYear==unique(timeCover$quadYear)[i])
   timeBOERNPP$Tot.cov[i]<-sum(subdata$cover)
 }
+timeBOERNPP$Het.cov<-c()
+for (i in 1:length(unique(timeCover$quadYear))){
+  subdata<-subset(timeCover,quadYear==unique(timeCover$quadYear)[i]&species!="BOER4")
+  timeBOERNPP$Het.cov[i]<-sum(subdata$cover)
+}
 quadcol<-palette(rainbow(length(unique(timeBOERNPP$quadID))))
-plot(timeBOERNPP$Dens,timeBOERNPP$PerCap,col=quadcol,pch=19)
-plot(timeBOERNPP$Tot.cov,timeBOERNPP$PerCap,col=quadcol,pch=19)
+plot(timeBOERNPP$Dens,timeBOERNPP$PerCap,col=quadcol,pch=19)#neg
+plot(timeBOERNPP$Tot.cov,timeBOERNPP$PerCap,col=quadcol,pch=19)#pos
+plot(timeBOERNPP$Het.cov,timeBOERNPP$PerCap,col=quadcol,pch=19)#neg
 palette("default")
 
 
